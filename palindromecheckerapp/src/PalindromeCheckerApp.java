@@ -1,56 +1,52 @@
 /**
  * =============================================================
- * MAIN CLASS - UseCase10PalindromeCheckerApp
+ * MAIN CLASS - UseCase11PalindromeCheckerApp
  * =============================================================
  *
- * Use Case 10: Case-Insensitive and Space-Insensitive Palindrome Check
+ * Use Case 11: Object-Oriented Palindrome Check
  *
  * Description:
- * This class checks whether a string is a palindrome
- * while ignoring case differences and spaces, making
- * it suitable for real-world phrase validation.
+ * This class uses Object-Oriented Programming principles
+ * to check palindrome by encapsulating the logic inside
+ * a dedicated PalindromeChecker class.
  *
  * At this stage, the application:
- * - Converts the string to lowercase
- * - Removes all spaces from the string
- * - Applies two-pointer comparison
+ * - Defines a PalindromeChecker class with a check method
+ * - Encapsulates palindrome logic inside the class
+ * - Uses object instantiation to perform the check
  * - Displays the validation result
  *
- * This demonstrates input normalization before palindrome check.
- *
  * @author Developer
- * @version 10.0
+ * @version 11.0
  */
-public class PalindromeCheckerApp {
-    /**
-     * Application entry point for UC10.
-     *
-     * @param args Command-line arguments
-     */
-    public static void main(String[] args) {
-        String input = "A man a plan a canal Panama"; // Example input
 
-        // Normalize: convert to lowercase and remove spaces
+class PalindromeChecker {
+    private String input;
+
+    public PalindromeChecker(String input) {
+        this.input = input;
+    }
+
+    public boolean check() {
         String normalized = input.toLowerCase().replaceAll("\\s+", "");
-
-        int start = 0;
-        int end = normalized.length() - 1;
-        boolean isPalindrome = true;
-
-        // Two-pointer comparison on normalized string
+        int start = 0, end = normalized.length() - 1;
         while (start < end) {
-            if (normalized.charAt(start) != normalized.charAt(end)) {
-                isPalindrome = false;
-                break;
-            }
-            start++;
-            end--;
+            if (normalized.charAt(start) != normalized.charAt(end)) return false;
+            start++; end--;
         }
+        return true;
+    }
 
-        if (isPalindrome) {
-            System.out.println("The string \"" + input + "\" is a palindrome.");
+    public String getInput() { return input; }
+}
+
+public class PalindromeCheckerApp {
+    public static void main(String[] args) {
+        PalindromeChecker checker = new PalindromeChecker("Able was I ere I saw Elba");
+        if (checker.check()) {
+            System.out.println("The string \"" + checker.getInput() + "\" is a palindrome.");
         } else {
-            System.out.println("The string \"" + input + "\" is NOT a palindrome.");
+            System.out.println("The string \"" + checker.getInput() + "\" is NOT a palindrome.");
         }
     }
 }
