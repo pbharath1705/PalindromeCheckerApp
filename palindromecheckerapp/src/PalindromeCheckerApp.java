@@ -1,58 +1,53 @@
 /**
  * =============================================================
- * MAIN CLASS - UseCase9PalindromeCheckerApp
+ * MAIN CLASS - UseCase10PalindromeCheckerApp
  * =============================================================
  *
- * Use Case 9: Recursive Palindrome Check
+ * Use Case 10: Case-Insensitive and Space-Insensitive Palindrome Check
  *
  * Description:
  * This class checks whether a string is a palindrome
- * using a recursive approach, calling itself with
- * progressively smaller substrings.
+ * while ignoring case differences and spaces, making
+ * it suitable for real-world phrase validation.
  *
  * At this stage, the application:
- * - Uses a recursive method with start and end indices
- * - Base case: start >= end means palindrome
- * - Compares characters at start and end positions
- * - Recursively checks the inner substring
+ * - Converts the string to lowercase
+ * - Removes all spaces from the string
+ * - Applies two-pointer comparison
+ * - Displays the validation result
  *
- * This demonstrates recursion-based palindrome validation.
+ * This demonstrates input normalization before palindrome check.
  *
  * @author Developer
- * @version 9.0
+ * @version 10.0
  */
 public class PalindromeCheckerApp {
-
     /**
-     * Recursively checks if the string is a palindrome.
-     *
-     * @param str   The input string
-     * @param start Starting index
-     * @param end   Ending index
-     * @return true if palindrome, false otherwise
-     */
-    public static boolean isPalindrome(String str, int start, int end) {
-        // Base case: if start >= end, it's a palindrome
-        if (start >= end) {
-            return true;
-        }
-        // If characters at start and end don't match
-        if (str.charAt(start) != str.charAt(end)) {
-            return false;
-        }
-        // Recursively check the inner substring
-        return isPalindrome(str, start + 1, end - 1);
-    }
-
-    /**
-     * Application entry point for UC9.
+     * Application entry point for UC10.
      *
      * @param args Command-line arguments
      */
     public static void main(String[] args) {
-        String input = "kayak"; // Example input
+        String input = "A man a plan a canal Panama"; // Example input
 
-        if (isPalindrome(input, 0, input.length() - 1)) {
+        // Normalize: convert to lowercase and remove spaces
+        String normalized = input.toLowerCase().replaceAll("\\s+", "");
+
+        int start = 0;
+        int end = normalized.length() - 1;
+        boolean isPalindrome = true;
+
+        // Two-pointer comparison on normalized string
+        while (start < end) {
+            if (normalized.charAt(start) != normalized.charAt(end)) {
+                isPalindrome = false;
+                break;
+            }
+            start++;
+            end--;
+        }
+
+        if (isPalindrome) {
             System.out.println("The string \"" + input + "\" is a palindrome.");
         } else {
             System.out.println("The string \"" + input + "\" is NOT a palindrome.");
